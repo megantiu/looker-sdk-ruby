@@ -30,23 +30,20 @@ require 'faraday'
 # by the looker-sdk to prevent a race condition later.
 # See https://github.com/lostisland/faraday/issues/181
 # and https://bugs.ruby-lang.org/issues/921
-if (Faraday::VERSION < '1.0.0')
-  require 'faraday/autoload'
-  require 'faraday/adapter'
-  require 'faraday/adapter/rack'
-  require 'faraday/adapter/net_http'
-  require 'faraday/connection'
-  require 'faraday/error'
-  require 'faraday/middleware'
-  require 'faraday/options'
-  require 'faraday/parameters'
-  require 'faraday/rack_builder'
-  require 'faraday/request'
-  require 'faraday/request/authorization'
-  require 'faraday/response'
-  require 'faraday/upload_io'
-  require 'faraday/utils'
-end
+require 'faraday/autoload'
+require 'faraday/adapter'
+require 'faraday/adapter/rack'
+require 'faraday/adapter/net_http'
+require 'faraday/connection'
+require 'faraday/error'
+require 'faraday/middleware'
+require 'faraday/options'
+require 'faraday/parameters'
+require 'faraday/rack_builder'
+require 'faraday/request'
+require 'faraday/request/authorization'
+require 'faraday/response'
+require 'faraday/utils'
 
 #require 'rack'
 #require 'rack/mock_response'
@@ -67,12 +64,11 @@ module LookerSDK
       @client
     end
 
-    # @private
-    def respond_to_missing?(method_name, include_private=false); client.respond_to?(method_name, include_private); end if RUBY_VERSION >= "1.9"
-    # @private
-    def respond_to?(method_name, include_private=false); client.respond_to?(method_name, include_private) || super; end if RUBY_VERSION < "1.9"
+    def respond_to_missing?(method_name, include_private = false)
+      client.respond_to?(method_name, include_private)
+    end
 
-  private
+    private
 
     def method_missing(method_name, *args, &block)
       return super unless client.respond_to?(method_name)
