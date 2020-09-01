@@ -43,7 +43,7 @@ require 'faraday/rack_builder'
 require 'faraday/request'
 require 'faraday/request/authorization'
 require 'faraday/response'
-require 'faraday/upload_io'
+require 'faraday/file_part'
 require 'faraday/utils'
 
 #require 'rack'

@@ -420,7 +420,7 @@ module LookerSDK
 
     class Serializer < Sawyer::Serializer
       def encode(data)
-        data.kind_of?(Faraday::UploadIO) ? data : super
+        data.kind_of?(Faraday::FilePart) ? data : super
       end
 
       # slight modification to the base class' decode_hash_value function to
@@ -472,7 +472,7 @@ module LookerSDK
 
     def merge_content_type_if_body(body, options = {})
       if body
-        if body.kind_of?(Faraday::UploadIO)
+        if body.kind_of?(Faraday::FilePart)
           length = File.new(body.local_path).size.to_s
           headers = {:content_type => body.content_type, :content_length => length}.merge(options[:headers] || {})
         else
